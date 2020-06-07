@@ -55,7 +55,6 @@
     <Compile Include="Schemy.cs" />
     <Compile Include="Symbol.cs" />
     <Compile Include="Utils.cs" />
-    <EmbeddedResource Include="init.ss"><LogicalName>init.ss</LogicalName></EmbeddedResource>
     <Compile Include="SchemeCore.cs" />
   </ItemGroup>
   
