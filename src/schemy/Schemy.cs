@@ -43,29 +43,30 @@ namespace Schemy
                 this.environment = new Environment(initializer(this), this.environment);
             }
 
-            foreach (var iniReader in GetInitializeFiles())
-            {
-                this.Evaluate(iniReader);
-            }
+            // foreach (var iniReader in GetInitializeFiles())
+            // {
+            //     this.Evaluate(iniReader);
+            // }
+            this.Evaluate(SchemeCore.Init);
         }
 
-        private IEnumerable<TextReader> GetInitializeFiles()
-        {
-            using (Stream stream = typeof(Interpreter).Assembly.GetManifestResourceStream("init.ss"))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                yield return reader;
-            }
+        // private IEnumerable<TextReader> GetInitializeFiles()
+        // {
+        //     using (Stream stream = typeof(Interpreter).Assembly.GetManifestResourceStream("init.ss"))
+        //     using (StreamReader reader = new StreamReader(stream))
+        //     {
+        //         yield return reader;
+        //     }
 
-            string initFile = Path.Combine(Path.GetDirectoryName(typeof(Interpreter).Assembly.Location), ".init.ss");
-            if (File.Exists(initFile))
-            {
-                using (var reader = new StreamReader(initFile))
-                {
-                    yield return reader;
-                }
-            }
-        }
+        //     string initFile = Path.Combine(Path.GetDirectoryName(typeof(Interpreter).Assembly.Location), ".init.ss");
+        //     if (File.Exists(initFile))
+        //     {
+        //         using (var reader = new StreamReader(initFile))
+        //         {
+        //             yield return reader;
+        //         }
+        //     }
+        // }
 
         public IFileSystemAccessor FileSystemAccessor { get { return this.fsAccessor; } }
 
@@ -98,6 +99,19 @@ namespace Schemy
                 {
                     return new EvaluationResult(e, null);
                 }
+            }
+        }
+
+        /// <summary>
+        ///   Evaluate script from string
+        /// </summary>
+        public EvaluationResult Evaluate(string textInput)
+        {
+            if (string.IsNullOrEmpty(textInput))
+                return new EvaluationResult(null, null);
+            using (TextReader reader = new StringReader(textInput))
+            {
+                return Evaluate(reader);
             }
         }
 

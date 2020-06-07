@@ -31,6 +31,8 @@ namespace Schemy
                         Console.WriteLine("Loaded init file: " + initFile);
                     }
                 }
+            }else{
+                Console.WriteLine("Init without .init.ss ...");
             }
         }
 
