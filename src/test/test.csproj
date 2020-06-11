@@ -98,4 +98,9 @@
     <Copy SourceFiles="tests.ss" DestinationFiles="$(TargetDir)tests.ss" />
   </Target>
   -->
+    
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="tests.ss" DestinationFiles="$(TargetDir)tests.ss" />
+  </Target>
+    
 </Project>
