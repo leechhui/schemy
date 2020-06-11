@@ -481,6 +481,36 @@ namespace Schemy
             }
         }
 
+        private static Pointer _ParseAtom(string token, Buffer buffer)
+        {
+            int intVal;
+            double floatVal;
+            if (token == "#t")
+            {
+                return buffer.NewBool(true);
+            }
+            else if (token == "#f")
+            {
+                return buffer.NewBool(false);
+            }
+            else if (token[0] == '"')
+            {
+                return buffer.NewString(token.Substring(1, token.Length - 2));
+            }
+            else if (int.TryParse(token, out intVal))
+            {
+                return buffer.NewInt(intVal);
+            }
+            else if (double.TryParse(token, out floatVal))
+            {
+                return buffer.NewFloat((float)floatVal);
+            }
+            else
+            {
+                return buffer.NewObject(Symbol.FromString(token)); // a symbol
+            }
+        }
+
         private static object ParseAtom(string token)
         {
             int intVal;
