@@ -23,7 +23,9 @@ namespace Schemy
                 { ",@", Symbol.UNQUOTE_SPLICING},
             };
 
-        private readonly string symbol;
+        private readonly string symName;
+        public readonly bool isKeyword;
+        // public readonly bool isInterned;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Symbol"/> class.
@@ -34,12 +36,24 @@ namespace Schemy
         /// </remarks>
         private Symbol(string sym)
         {
-            this.symbol = sym;
+            this.symName = sym;
+            this.isKeyword = false;
+        }
+
+        private Symbol(string sym, bool isKeyword)
+        {
+            this.symName = sym;
+            this.isKeyword = isKeyword;
         }
 
         public string AsString
         {
-            get { return this.symbol; }
+            get { return this.symName; }
+        }
+
+        public bool IsInterned
+        {
+            get { return table.ContainsKey(this.symName); }
         }
 
         /// <summary>
@@ -49,16 +63,25 @@ namespace Schemy
         /// <returns>the symbol instance</returns>
         public static Symbol FromString(string sym)
         {
-            Symbol res;
-            if (!table.TryGetValue(sym, out res))
+            if (table.TryGetValue(sym, out Symbol resultSymbol))
             {
-                table[sym] = new Symbol(sym);
+                return resultSymbol;
+            }else{
+                var newSymbol = new Symbol(sym);
+                table[sym] = newSymbol;
+                return newSymbol;
             }
+            // Symbol res;
+            // if (!table.TryGetValue(sym, out res))
+            // {
+            //     table[sym] = new Symbol(sym);
+            // }
 
-            return table[sym];
+            // return table[sym];
         }
 
         #region wellknown symbols
+        // TODO: Optimization, use readonly instead of properties
         public static Symbol IF { get { return Symbol.FromString("if"); } }
         public static Symbol QUOTE { get { return Symbol.FromString("quote"); } }
         public static Symbol SET { get { return Symbol.FromString("set!"); } }
@@ -77,10 +100,22 @@ namespace Schemy
         #region object implementations
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+                return false;
+            /*
             if (obj is Symbol)
             {
                 return object.Equals(this.symbol, ((Symbol)obj).symbol);
+            }
+            else
+            {
+                return false;
+            }
+           */
+            var tmp = obj as Symbol;
+            if (!object.ReferenceEquals(null, tmp))
+            {
+                return string.Equals(this.symName, tmp.symName);
             }
             else
             {
@@ -90,18 +125,25 @@ namespace Schemy
 
         public override string ToString()
         {
-            return string.Format("'{0}", this.symbol);
+            // return string.Format("'{0}", this.symName);
+            return "'" + this.symName;
         }
 
         public override int GetHashCode()
         {
-            return this.symbol.GetHashCode();
+            return this.symName.GetHashCode();
         }
 
         public bool Equals(Symbol other)
         {
-            return ((object)this).Equals(other);
+            // return ((object)this).Equals(other);
+            return string.Equals(this.symName, other.symName);
         }
         #endregion object implementations
+
+        public static List<string> AllSymbols()
+        {
+            return new List<string>(table.Keys);
+        }
     }
 }
