@@ -139,7 +139,8 @@ namespace Schemy
             {
                 try
                 {
-                    if (!string.IsNullOrEmpty(prompt) && output != null) output.Write(prompt);
+                    if (!string.IsNullOrEmpty(prompt) && output != null)
+                        output.Write(prompt);
                     var expr = Expand(Read(port), environment, macroTable, true);
                     if (Symbol.EOF.Equals(expr))
                     {
@@ -621,6 +622,7 @@ namespace Schemy
 
                         if (!string.IsNullOrEmpty(token) && !token.StartsWith(";"))
                         {
+                            System.Console.WriteLine("new token: {0}", token);
                             return token;
                         }
                     }
