@@ -25,6 +25,17 @@ namespace Schemy
                     (define test1 (if (equal? (car first) 'else) '#t (car first)))
                     (define expr1 (car (cdr first)))
                     `(if ,test1 ,expr1 (cond ,@rest))))))
+
+(define-macro when
+  (lambda (test branch)
+    (list 'if test
+      (cons 'begin branch))))
+
+(define-macro unless
+  (lambda (test branch)
+    (list 'if
+          (list 'not test)
+          (cons 'begin branch))))
 ";
     }
 }

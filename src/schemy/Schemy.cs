@@ -154,7 +154,8 @@ namespace Schemy
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    // Console.WriteLine(e.Message);
+                    output.WriteLine(e.Message);
                 }
             }
         }
@@ -622,7 +623,7 @@ namespace Schemy
 
                         if (!string.IsNullOrEmpty(token) && !token.StartsWith(";"))
                         {
-                            System.Console.WriteLine("new token: {0}", token);
+                            // System.Console.WriteLine("new token: {0}", token);
                             return token;
                         }
                     }
