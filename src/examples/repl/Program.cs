@@ -122,11 +122,14 @@ namespace Schemy
             // TODO: hash/dict
             // TODO: set-car! set-cdr!
             // TODO: alist
+            // misc: incf decf ++ --
 
+            // Console.WriteLine("Args: {0}#{1} {2}", args, args.Length, args[0]);
             if (args.Length > 0 && File.Exists(args[0]))
             {
                 // evaluate input file's content
                 var file = args[0];
+                // Console.WriteLine("Eval file ...");
                 var interpreter = new Interpreter(new[] {extension}, new ReadOnlyFileSystemAccessor());
 
                 using (TextReader reader = new StreamReader(file))

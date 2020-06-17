@@ -19,7 +19,7 @@ str
 ; Functional programming:
 ; Map the list into another list using a function
 ; --------------------
-(map square nums)
+(print (map square nums))
 
 
 ; --------------------
@@ -34,7 +34,7 @@ str
   (loop ls '()))
 
 (reverse '(1 2 "foo" "bar"))
-(reverse (range 0 10000)) ; NO STACK OVERFLOW!
+(reverse (range 0 1000)) ; NO STACK OVERFLOW!
 
 ; --------------------
 ; Using LISP macros to extend the language syntax
@@ -58,5 +58,9 @@ str
 ; --------------------
 (let ((x 1)     ; let x = 1
       (y 2))    ; let y = 2
-  (+ x y))      ; evaluate x + y
+  (+ x y)
+  (print x)
+  (print y)
+  )      ; evaluate x + y
 
+(print "ended")

@@ -8,7 +8,7 @@ namespace Schemy
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Reflection;
+    // using System.Reflection;
 
     public class Interpreter
     {
@@ -178,14 +178,15 @@ namespace Schemy
             Func<object, object> readAhead = null;
             readAhead = token =>
             {
-                Symbol quote;
-                if (object.Equals(token, Symbol.EOF))
+                // Symbol quote;
+                // if (object.Equals(token, Symbol.EOF))
+                if (token is Symbol s && s.Equals(Symbol.EOF))
                 {
                     throw new SyntaxError("unexpected EOF");
                 }
-                else if (token is string)
+                else if (token is string tokenStr)
                 {
-                    string tokenStr = (string)token;
+                    // string tokenStr = (string)token;
                     if (tokenStr == "(")
                     {
                         var L = new List<object>();
@@ -206,7 +207,7 @@ namespace Schemy
                     {
                         throw new SyntaxError("unexpected )");
                     }
-                    else if (Symbol.QuotesMap.TryGetValue(tokenStr, out quote))
+                    else if (Symbol.QuotesMap.TryGetValue(tokenStr, out Symbol quote))
                     {
                         object quoted = Read(port);
                         return new List<object> { quote, quoted };
