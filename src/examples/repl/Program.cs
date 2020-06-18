@@ -122,7 +122,7 @@ namespace Schemy
             // TODO: hash/dict
             // TODO: set-car! set-cdr!
             // TODO: alist
-            // misc: incf decf ++ --
+            // misc: incf decf ++ -- to-delegate
 
             // Console.WriteLine("Args: {0}#{1} {2}", args, args.Length, args[0]);
             if (args.Length > 0 && File.Exists(args[0]))

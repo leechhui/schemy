@@ -23,7 +23,7 @@ namespace Schemy
                 { ",@", Symbol.UNQUOTE_SPLICING},
             };
 
-        private readonly string symName;
+        public readonly string name;
         public readonly bool isKeyword;
         // public readonly bool isInterned;
 
@@ -36,24 +36,24 @@ namespace Schemy
         /// </remarks>
         private Symbol(string sym)
         {
-            this.symName = sym;
+            this.name = sym;
             this.isKeyword = false;
         }
 
         private Symbol(string sym, bool isKeyword)
         {
-            this.symName = sym;
+            this.name = sym;
             this.isKeyword = isKeyword;
         }
 
         public string AsString
         {
-            get { return this.symName; }
+            get { return this.name; }
         }
 
         public bool IsInterned
         {
-            get { return table.ContainsKey(this.symName); }
+            get { return table.ContainsKey(this.name); }
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Schemy
             var tmp = obj as Symbol;
             if (!object.ReferenceEquals(null, tmp))
             {
-                return string.Equals(this.symName, tmp.symName);
+                return string.Equals(this.name, tmp.name);
             }
             else
             {
@@ -126,18 +126,18 @@ namespace Schemy
         public override string ToString()
         {
             // return string.Format("'{0}", this.symName);
-            return "'" + this.symName;
+            return "'" + this.name;
         }
 
         public override int GetHashCode()
         {
-            return this.symName.GetHashCode();
+            return this.name.GetHashCode();
         }
 
         public bool Equals(Symbol other)
         {
             // return ((object)this).Equals(other);
-            return string.Equals(this.symName, other.symName);
+            return string.Equals(this.name, other.name);
         }
         #endregion object implementations
 
