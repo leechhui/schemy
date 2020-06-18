@@ -310,6 +310,16 @@ namespace cscheme
         }
     }
 
+    public class SchBool : SchObj
+    {
+        public bool value;
+
+        public SchBool(bool value)
+        {
+            this.value = value;
+        }
+    }
+
     // TODO: 添加数学运算
     public class SchInt : SchNum
     {
@@ -680,6 +690,27 @@ namespace cscheme
                 return false;
             return x.Name == Name;
         }
+
+        public static readonly SchSym IF = new SchSym("if");
+        public static readonly SchSym QUOTE = new SchSym("quote");
+        public static readonly SchSym SET = new SchSym("set!");
+        public static readonly SchSym DEFINE = new SchSym("define");
+        public static readonly SchSym LAMBDA = new SchSym("lambda");
+        public static readonly SchSym BEGIN = new SchSym("begin");
+        public static readonly SchSym DEFINE_MACRO = new SchSym("define-macro");
+        public static readonly SchSym QUASIQUOTE = new SchSym("quasiquote");
+        public static readonly SchSym UNQUOTE = new SchSym("unquote");
+        public static readonly SchSym UNQUOTE_SPLICING = new SchSym("unquote-splicing");
+        public static readonly SchSym EOF = new SchSym("#<eof>");
+        public static readonly SchSym APPEND = new SchSym("append");
+        public static readonly SchSym CONS = new SchSym("cons");
+
+        public static readonly Dictionary<string, SchSym> QuotesMap = new Dictionary<string, SchSym>(){
+            { "'", SchSym.QUOTE },
+            { "`", SchSym.QUASIQUOTE},
+            { ",", SchSym.UNQUOTE},
+            { ",@", SchSym.UNQUOTE_SPLICING},
+        };
      
     }
 

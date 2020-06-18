@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace cscheme
@@ -14,6 +15,7 @@ namespace cscheme
 
         public object NextToken()
         {
+            return null;
         }
     }
 }
